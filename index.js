@@ -13,23 +13,28 @@ const schema = buildSchema(`
   type Post {
       id: Int
       title:String
+      comments: [Comment]
+  }
+  type Comment {
+      user:String
+      text:String
   }
 `);
 
 const posts = [
     {
         id: 1,
-        title: "this is the first title"
-    },
-    {
-        id: 2,
-        title: "this is the second title"
-
-    },
-    {
-        id: 3,
-        title: "And here we go with the third and final one"
-
+        title: "this is the first title",
+        comments: [
+            {
+                user: "MrFarhan",
+                text: "Graphql is awsome"
+            },
+            {
+                user: "John",
+                text: "GQL is a Query language"
+            }
+        ]
     }
 ]
 
