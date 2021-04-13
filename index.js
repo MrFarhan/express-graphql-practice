@@ -5,10 +5,9 @@ const { graphqlHTTP } = require('express-graphql');
 
 const app = express();
 
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Query {
-    hello: String
-    getPost : Post
+    Post(id:Int!) : Post
   }
   type Post {
       id: Int
@@ -16,12 +15,28 @@ var schema = buildSchema(`
   }
 `);
 
-var root = {
-    hello: () => 'Hello world!',
-    getPost: () => ({
-        id: "1",
-        title: "temp title here"
-    })
+const posts = [
+    {
+        id: 1,
+        title: "this is the first title"
+    },
+    {
+        id: 2,
+        title: "this is the second title"
+
+    },
+    {
+        id: 3,
+        title: "And here we go with the third and final one"
+
+    }
+]
+
+const root = {
+    Post: ({ id }) => {
+        // return posts[id]
+        return posts.find(post =>post.id === id);
+    }
 };
 
 app.use(
