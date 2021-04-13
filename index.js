@@ -8,6 +8,7 @@ const app = express();
 const schema = buildSchema(`
   type Query {
     Post(id:Int!) : Post
+    posts: [Post]
   }
   type Post {
       id: Int
@@ -35,7 +36,10 @@ const posts = [
 const root = {
     Post: ({ id }) => {
         // return posts[id]
-        return posts.find(post =>post.id === id);
+        return posts.find(post => post.id === id);
+    },
+    posts: () => {
+        return posts
     }
 };
 
